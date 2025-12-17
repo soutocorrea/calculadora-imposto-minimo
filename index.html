@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora do Imposto Mínimo para Alta Renda</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Literata:wght@400;600;700&family=Avenir:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #FFFFFF;
+            color: #000000;
+            font-family: 'Avenir', system-ui, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .card {
+            background-color: #FFFFFF;
+            border: 2px solid #C1B39F;
+            border-radius: 16px;
+            padding: 48px 40px;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Literata', Georgia, serif;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #000000;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-family: 'Avenir', system-ui, Verdana, sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            color: #635C54;
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 32px;
+            align-items: stretch;
+        }
+
+        #renda-anual {
+            flex: 1;
+            padding: 14px 16px;
+            font-size: 16px;
+            font-family: 'Avenir', system-ui, Verdana, sans-serif;
+            border: 2px solid #C1B39F;
+            border-radius: 8px;
+            background-color: #FFFFFF;
+            color: #000000;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        #renda-anual::placeholder {
+            color: #C1B39F;
+            font-size: 14px;
+        }
+
+        #renda-anual.valid {
+            border-color: #635C54;
+            background-color: #FFFFFF;
+        }
+
+        #renda-anual.invalid {
+            border-color: #F15B40;
+            background-color: #FFFFFF;
+        }
+
+        #renda-anual.invalid::placeholder {
+            color: #F15B40;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        button#calcular {
+            padding: 14px 28px;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'Avenir', system-ui, Verdana, sans-serif;
+            background-color: #F15B40;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
+
+        button#calcular:hover {
+            background-color: #D94A2F;
+            transform: translateY(-2px);
+        }
+
+        button#calcular:active {
+            transform: translateY(0);
+        }
+
+        #result-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 32px;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        #result-section.valid {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #result-section.invalid {
+            opacity: 0.3;
+        }
+
+        .bubble {
+            background-color: #C1B39F;
+            border-radius: 12px;
+            padding: 24px 16px;
+            transition: all 0.3s ease;
+        }
+
+        .bubble.valid {
+            background-color: #C1B39F;
+            border: 2px solid #635C54;
+        }
+
+        .bubble.invalid {
+            background-color: #FFF5F0;
+            border: 2px solid #F15B40;
+        }
+
+        .result-caption {
+            font-size: 12px;
+            font-weight: 500;
+            color: #635C54;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .bubble.invalid .result-caption {
+            color: #F15B40;
+        }
+
+        .highlight_2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #000000;
+            font-family: 'Avenir', system-ui, Verdana, sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .highlight_2.invalid {
+            color: #F15B40;
+        }
+
+        @media (max-width: 640px) {
+            .card {
+                padding: 32px 24px;
+                border-radius: 12px;
+            }
+
+            h1 {
+                font-size: 20px;
+                margin-bottom: 8px;
+            }
+
+            .subtitle {
+                font-size: 13px;
+                margin-bottom: 24px;
+            }
+
+            .input-group {
+                flex-direction: column;
+                gap: 12px;
+                margin-bottom: 24px;
+            }
+
+            button#calcular {
+                width: 100%;
+            }
+
+            #result-section {
+                gap: 12px;
+                margin-top: 24px;
+            }
+
+            .bubble {
+                padding: 20px 12px;
+            }
+
+            .result-caption {
+                font-size: 11px;
+            }
+
+            .highlight_2 {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 24px 16px;
+            }
+
+            h1 {
+                font-size: 18px;
+            }
+
+            .subtitle {
+                font-size: 12px;
+            }
+
+            .highlight_2 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Calculadora do Imposto Mínimo para Alta Renda</h1>
+            <p class="subtitle">Simule seu imposto com base na renda anual</p>
+
+            <div class="input-group">
+                <input 
+                    type="text" 
+                    id="renda-anual" 
+                    placeholder="    R$ 0,00"
+                    autocomplete="off"
+                >
+                <button id="calcular">Calcular</button>
+            </div>
+
+            <section id="result-section">
+                <div class="bubble">
+                    <div class="result-caption" id="result-caption-left">Seu imposto será de:</div>
+                    <div class="highlight_2" id="imposto">—</div>
+                </div>
+                <div class="bubble">
+                    <div class="result-caption" id="result-caption-right">Sua alíquota será de:</div>
+                    <div class="highlight_2" id="aliquota">—</div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('calcular').addEventListener('click', () => {
+          const rendaInput = document.getElementById('renda-anual');
+          const impostoElement = document.getElementById('imposto');
+          const aliquotaElement = document.getElementById('aliquota');
+          const bubbles = document.querySelectorAll('.bubble');
+          const resultSection = document.getElementById('result-section');
+          const resultCaptionLeft = document.getElementById('result-caption-left');
+          const resultCaptionRight = document.getElementById('result-caption-right');
+          const highlight2 = document.querySelectorAll('.highlight_2');
+
+          // Fazer o cálculo certo mesmo com pontos e vírgulas misturadas (ex: 1.000,00 ao invés de 1,000.00)
+          let rendaValue = rendaInput.value.replace(/\./g, ''); 
+          rendaValue = rendaValue.replace(',', '.');
+          rendaValue = parseFloat(rendaValue.replace(/[^\d.]/g, ''));
+
+          // Resetar formato
+          rendaInput.classList.remove('valid', 'invalid');
+          bubbles.forEach(bubble => bubble.classList.remove('valid', 'invalid'));
+          rendaInput.placeholder = "R$ 0,00";
+          resultSection.classList.remove('invalid');
+          resultCaptionLeft.classList.remove('invalid');
+          resultCaptionRight.classList.remove('invalid');
+          highlight2.forEach(el => el.classList.remove('invalid'));
+
+          // Input não válido
+          if (isNaN(rendaValue) || rendaValue < 600000) {
+            rendaInput.classList.add('invalid');
+            rendaInput.value = "";
+            rendaInput.placeholder = "    DEVE SER ACIMA DE R$ 600 MIL";
+            bubbles.forEach(bubble => bubble.classList.add('invalid'));
+            resultSection.classList.add('invalid');
+            resultCaptionLeft.classList.add('invalid');
+            resultCaptionRight.classList.add('invalid');
+            aliquotaElement.textContent = ""
+            impostoElement.textContent = ""
+            highlight2.forEach(el => el.classList.add('invalid'));
+            return;
+          }
+
+          // Input válido
+          rendaInput.classList.add('valid');
+          bubbles.forEach(bubble => bubble.classList.add('valid'));
+
+          let al_minima = 0;
+          if (rendaValue > 1200000) {
+            al_minima = (0.2 * (1200000 - 600000)) / 1200000;
+          } else {
+            al_minima = (0.2 * (rendaValue - 600000)) / rendaValue;
+          }
+
+          const imposto_minimo = rendaValue * al_minima;
+
+          const al_minima_porcentagem = al_minima * 100;
+
+          impostoElement.textContent = `R$ ${imposto_minimo.toFixed(2).replace('.', ',').replace(/\d(?=(\d{3})+,)/g, '$&.')}`;
+          aliquotaElement.textContent = `${al_minima_porcentagem.toFixed(2)}%`;
+          resultSection.classList.remove('invalid');
+          resultSection.classList.add('valid');
+        });
+
+        // Colocar o símbolo de R$ e os pontos na hora do input
+        document.getElementById('renda-anual').addEventListener('input', (event) => {
+          let value = event.target.value.replace(/\D/g, '');
+          value = (value / 100).toFixed(2) + '';
+          value = value.replace('.', ',');
+          value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+          event.target.value = '    R$ ' + value;
+        });
+    </script>
+</body>
+</html>
