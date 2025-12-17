@@ -415,7 +415,7 @@
           const al_minima_porcentagem = al_minima * 100;
 
           impostoElement.textContent = `R$ ${imposto_minimo.toFixed(2).replace('.', ',').replace(/\d(?=(\d{3})+,)/g, '$&.')}`;
-          aliquotaElement.textContent = `${al_minima_porcentagem.toFixed(2)}%`;
+          aliquotaElement.textContent = `${al_minima_porcentagem.toFixed(3)}%`;
           resultSection.classList.remove('invalid');
           resultSection.classList.add('valid');
         });
