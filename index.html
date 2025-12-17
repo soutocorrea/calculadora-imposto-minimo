@@ -408,12 +408,7 @@
           rendaInput.classList.add('valid');
           bubbles.forEach(bubble => bubble.classList.add('valid'));
 
-          let al_minima = 0;
-          if (rendaValue > 1200000) {
-            al_minima = (0.2 * (1200000 - 600000)) / 1200000;
-          } else {
-            al_minima = (0.2 * (rendaValue - 600000)) / rendaValue;
-          }
+          let al_minima = Math.min(((rendaValue - 600000) / 600000) * 0.10, 0.10);
 
           const imposto_minimo = rendaValue * al_minima;
 
