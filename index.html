@@ -493,6 +493,203 @@
             color: #FFFFFF;
         }
 
+        /* Modal de Autenticacao */
+        .auth-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .auth-modal.visible {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .auth-modal-content {
+            background-color: #FFFFFF;
+            border: 2px solid #C1B39F;
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .auth-modal-title {
+            font-family: 'Literata', Georgia, serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: #635C54;
+            margin-bottom: 16px;
+        }
+
+        .auth-modal-subtitle {
+            font-size: 14px;
+            color: #635C54;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .auth-form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .auth-form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 8px;
+        }
+
+        .auth-form-group input {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 14px;
+            font-family: 'Avenir', system-ui, Verdana, sans-serif;
+            border: 2px solid #C1B39F;
+            border-radius: 8px;
+            background-color: #FFFFFF;
+            color: #000000;
+            transition: all 0.3s ease;
+        }
+
+        .auth-form-group input:focus {
+            outline: none;
+            border-color: #F15B40;
+            box-shadow: 0 0 0 2px rgba(241, 91, 64, 0.1);
+        }
+
+        .auth-form-group input.error {
+            border-color: #F15B40;
+            background-color: #FFF5F0;
+        }
+
+        .auth-error-message {
+            display: none;
+            color: #F15B40;
+            font-size: 13px;
+            margin-top: 8px;
+            font-weight: 500;
+        }
+
+        .auth-error-message.visible {
+            display: block;
+        }
+
+        .auth-button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .auth-button-group button {
+            flex: 1;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'Avenir', system-ui, Verdana, sans-serif;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .auth-button-group .auth-submit {
+            background-color: #F15B40;
+            color: #FFFFFF;
+        }
+
+        .auth-button-group .auth-submit:hover {
+            background-color: #D94A2F;
+            transform: translateY(-2px);
+        }
+
+        .auth-button-group .auth-cancel {
+            background-color: transparent;
+            color: #635C54;
+            border: 2px solid #C1B39F;
+        }
+
+        .auth-button-group .auth-cancel:hover {
+            background-color: #C1B39F;
+            color: #FFFFFF;
+        }
+
+        .auth-denied-message {
+            display: none;
+            background-color: #FFF5F0;
+            border: 2px solid #F15B40;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .auth-denied-message.visible {
+            display: block;
+        }
+
+        .auth-denied-message h3 {
+            font-family: 'Literata', Georgia, serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: #F15B40;
+            margin-bottom: 12px;
+        }
+
+        .auth-denied-message p {
+            font-size: 13px;
+            color: #635C54;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .auth-denied-message p:last-child {
+            margin-bottom: 0;
+        }
+
+        .auth-denied-message a {
+            color: #F15B40;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .auth-denied-message a:hover {
+            text-decoration: underline;
+        }
+
         @media (max-width: 640px) {
             .main-container {
                 padding: 24px 20px;
@@ -703,7 +900,37 @@
                 <h2>Conheça nossa Calculadora Avançada</h2>
                 <p>Calculadora do Imposto Mínimo — Rendas por Categoria</p>
                 <p style="font-size: 12px; color: #635C54; margin-bottom: 20px;">Simule seu imposto com base em múltiplas categorias de renda</p>
-                <button onclick="abrirCalculadora()">Abrir Calculadora Avançada</button>
+                <button onclick="abrirModalAutenticacao()">Abrir Calculadora Avancada</button>
+            </div>
+
+            <!-- Modal de Autenticacao -->
+            <div id="authModal" class="auth-modal">
+                <div class="auth-modal-content">
+                    <div class="auth-modal-title">Acesso a Calculadora</div>
+                    <p class="auth-modal-subtitle">Digite seu e-mail para acessar a calculadora avan&ccedil;ada</p>
+
+                    <div class="auth-form-group">
+                        <label for="authEmail">E-mail</label>
+                        <input type="email" id="authEmail" placeholder="nome@empresa.com.br">
+                        <div class="auth-error-message" id="authErrorMessage">Email invalido. Use seu email corporativo @soutocorrea.com.br ou @soutocorrea.com</div>
+                    </div>
+
+                    <div class="auth-form-group" style="display: flex; align-items: center; margin-bottom: 20px;">
+                        <input type="checkbox" id="authRemember" style="width: 16px; height: 16px; margin-right: 8px; cursor: pointer; accent-color: #F15B40;">
+                        <label for="authRemember" style="margin: 0; font-size: 13px; color: #635C54; cursor: pointer;">Lembrar meu e-mail neste dispositivo</label>
+                    </div>
+
+                    <div class="auth-denied-message" id="authDeniedMessage">
+                        <h3>Acesso Restrito</h3>
+                        <p>Esta calculadora &eacute; exclusiva para colaboradores e clientes do Souto Correa.</p>
+                        <p>Para solicitar acesso, entre em contato com nossa <strong>&aacute;rea de Direito Tribut&aacute;rio</strong>.</p>
+                    </div>
+
+                    <div class="auth-button-group">
+                        <button type="button" class="auth-submit" onclick="validarEmailAutenticacao()">Acessar</button>
+                        <button type="button" class="auth-cancel" onclick="fecharModalAutenticacao()">Cancelar</button>
+                    </div>
+                </div>
             </div>
 
             <!-- Calculadora Detalhada (inicialmente oculta) -->
@@ -958,43 +1185,71 @@
         });
 
         function calcularDetalhado() {
+            // Captura dos dados (Entradas)
             const salario = extrairNumero(document.getElementById('salario').value);
             const alugueis = extrairNumero(document.getElementById('alugueis').value);
-            const rendimentos = extrairNumero(document.getElementById('rendimentos').value);
-            const ganho = extrairNumero(document.getElementById('ganho').value);
+            const ganhoCapital = extrairNumero(document.getElementById('ganho').value);
+            const rendFinanceiros = extrairNumero(document.getElementById('rendimentos').value);
             const dividendos = extrairNumero(document.getElementById('dividendos').value);
-            const isentos = extrairNumero(document.getElementById('isentos').value);
-            const retencoes = extrairNumero(document.getElementById('retencoes').value);
+            const rendIsentos = extrairNumero(document.getElementById('isentos').value);
+            const retencoesPagas = extrairNumero(document.getElementById('retencoes').value);
 
             const incluirIsentos = document.getElementById('checkIsentos').checked;
-            const incluirExclusiva = document.getElementById('checkExclusiva').checked;
+            const incluirExclusivos = document.getElementById('checkExclusiva').checked;
 
-            const rendaTotal = salario + alugueis + rendimentos + ganho + dividendos + isentos;
+            // Calculo da renda total (todos os rendimentos)
+            const rendaTotal = salario + alugueis + rendFinanceiros + ganhoCapital + dividendos + rendIsentos;
 
-            let base = salario + alugueis + ganho + dividendos;
-            if (incluirIsentos) base += isentos;
-            if (incluirExclusiva) base += rendimentos;
+            // Calculo da base (Correcao aplicada aqui)
+            let baseCalculo = salario + alugueis + ganhoCapital;
 
+            if (incluirIsentos) {
+                baseCalculo += (dividendos + rendIsentos);
+            }
+
+            if (incluirExclusivos) {
+                // CORRECAO: Agora soma os rendimentos financeiros se o check estiver marcado
+                baseCalculo += rendFinanceiros;
+            }
+
+            // Exibir renda total e base
             document.getElementById('rendaTotal').textContent = formatarMoeda(rendaTotal);
-            document.getElementById('baseMinimo').textContent = formatarMoeda(base);
-
+            document.getElementById('baseMinimo').textContent = formatarMoeda(baseCalculo);
             document.getElementById('resultsSection').classList.add('visible');
 
-            if (base < 600000) {
+            // Calculo da aliquota (Regra da Rampa 600k - 1.2M)
+            let aliquota = 0;
+
+            if (baseCalculo <= 600000) {
+                // Abaixo de 600k anuais: Isento do minimo
+                aliquota = 0;
+            } else if (baseCalculo >= 1200000) {
+                // Acima de 1.2M anuais: Teto de 10%
+                aliquota = 0.10;
+            } else {
+                // Entre 600k e 1.2M: Calculo progressivo
+                // Formula: (Base - 600.000) / 600.000 * 10%
+                aliquota = ((baseCalculo - 600000) / 600000) * 0.10;
+            }
+
+            // Apuracao final
+            const impostoMinimoDevido = baseCalculo * aliquota;
+            let saldoPagar = impostoMinimoDevido - retencoesPagas;
+
+            // Nao existe imposto negativo
+            if (saldoPagar < 0) saldoPagar = 0;
+
+            // Exibicao dos resultados
+            if (baseCalculo < 600000) {
                 document.getElementById('statusAbaixo').style.display = 'block';
                 document.getElementById('resultadosCalculados').style.display = 'none';
             } else {
                 document.getElementById('statusAbaixo').style.display = 'none';
                 document.getElementById('resultadosCalculados').style.display = 'block';
 
-                const aliquotaBruta = ((base - 600000) / 600000) * 0.10;
-                const aliquota = Math.min(aliquotaBruta, 0.10);
-                const impostoMin = base * aliquota;
-                const impostoPagar = Math.max(impostoMin - retencoes, 0);
-
                 document.getElementById('aliquota').textContent = (aliquota * 100).toFixed(3) + '%';
-                document.getElementById('impostoMin').textContent = formatarMoeda(impostoMin);
-                document.getElementById('impostoPagar').textContent = formatarMoeda(impostoPagar);
+                document.getElementById('impostoMin').textContent = formatarMoeda(impostoMinimoDevido);
+                document.getElementById('impostoPagar').textContent = formatarMoeda(saldoPagar);
             }
         }
 
@@ -1002,6 +1257,72 @@
             if (event.key === 'Enter') {
                 event.preventDefault();
                 calcularDetalhado();
+            }
+        });
+
+        // ========== FUNCOES DE AUTENTICACAO ==========
+        function abrirModalAutenticacao() {
+            document.getElementById('authModal').classList.add('visible');
+            document.getElementById('authEmail').focus();
+            document.getElementById('authErrorMessage').classList.remove('visible');
+            document.getElementById('authDeniedMessage').classList.remove('visible');
+            document.getElementById('authEmail').classList.remove('error');
+            document.getElementById('authEmail').value = '';
+        }
+
+        function fecharModalAutenticacao() {
+            document.getElementById('authModal').classList.remove('visible');
+            document.getElementById('authEmail').value = '';
+            document.getElementById('authErrorMessage').classList.remove('visible');
+            document.getElementById('authDeniedMessage').classList.remove('visible');
+            document.getElementById('authEmail').classList.remove('error');
+        }
+
+        function validarEmailAutenticacao() {
+            const email = document.getElementById('authEmail').value.trim();
+            const emailInput = document.getElementById('authEmail');
+            const errorMessage = document.getElementById('authErrorMessage');
+            const deniedMessage = document.getElementById('authDeniedMessage');
+
+            // Limpar mensagens de erro
+            errorMessage.classList.remove('visible');
+            deniedMessage.classList.remove('visible');
+            emailInput.classList.remove('error');
+
+            // Validar se email nao esta vazio
+            if (!email) {
+                emailInput.classList.add('error');
+                errorMessage.classList.add('visible');
+                return;
+            }
+
+            // Validar dominio do email
+            const dominiosValidos = ['@soutocorrea.com.br', '@soutocorrea.com'];
+            const emailValido = dominiosValidos.some(dominio => email.toLowerCase().endsWith(dominio));
+
+            if (!emailValido) {
+                emailInput.classList.add('error');
+                deniedMessage.classList.add('visible');
+                return;
+            }
+
+            // Email valido - abrir calculadora
+            fecharModalAutenticacao();
+            abrirCalculadora();
+        }
+
+        // Permitir Enter no campo de email
+        document.getElementById('authEmail').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                validarEmailAutenticacao();
+            }
+        });
+
+        // Fechar modal ao clicar fora
+        document.getElementById('authModal').addEventListener('click', function(event) {
+            if (event.target === this) {
+                fecharModalAutenticacao();
             }
         });
     </script>
